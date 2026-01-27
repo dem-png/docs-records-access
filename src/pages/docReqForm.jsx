@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
-import { Search, User, Upload, X } from 'lucide-react';
+import { Search, User, Upload, X, Link } from 'lucide-react';
+import Dashboard from "../dashboard";
+import { useNavigate } from "react-router-dom";
+
+
+
 
 export default function DocumentRequestForm() {
+  const navigate = useNavigate();
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [selectedDate, setSelectedDate] = useState('');
+
+
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -235,9 +243,13 @@ export default function DocumentRequestForm() {
 
             {/* Action Buttons */}
             <div className="flex justify-end gap-3">
-              <button className="px-6 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
-                Cancel
-              </button>
+              <button
+  onClick={() => navigate("/dashboard")}
+  className="px-6 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50"
+>
+  Cancel
+</button>
+
               <button className="px-6 py-2 bg-yellow-500 text-white rounded-md text-sm font-medium hover:bg-yellow-600">
                 Send Request
               </button>
