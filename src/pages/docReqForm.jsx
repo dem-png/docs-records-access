@@ -55,7 +55,7 @@ export default function DocumentRequestForm() {
 
             {/* Info Banner */}
             <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6 flex items-start gap-3">
-              <span className="text-yellow-600 text-xl">ℹ️</span>
+              <span className="text-yellow-600 text-xl"></span>
               <p className="text-sm text-yellow-800">
                 Fill out the form below to request different documents
               </p>
@@ -190,7 +190,7 @@ export default function DocumentRequestForm() {
                     <div key={index} className="border border-gray-300 rounded-lg p-3 flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 bg-yellow-100 rounded flex items-center justify-center">
-                          <span className="text-yellow-600">📄</span>
+                          <span className="text-yellow-600"></span>
                         </div>
                         <div>
                           <div className="text-sm font-medium">{file.name}</div>
