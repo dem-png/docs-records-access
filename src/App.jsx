@@ -1,6 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
-// Pages
 import Dashboard from "./pages/dashboard";
 import Masterlist from "./pages/masterlist";
 import DocumentRequestForm from "./pages/docReqForm";
@@ -17,7 +16,7 @@ function App() {
       <Route path="/documents" element={<Masterlist />} />
       <Route path="/request-document" element={<DocumentRequestForm />} />
 
-      {/* Preview Route */}
+      {/* Document Preview */}
       <Route path="/documents/preview" element={<DocumentPreview />} />
 
       {/* Catch-all for unmatched URLs */}

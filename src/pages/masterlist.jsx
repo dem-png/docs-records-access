@@ -54,10 +54,13 @@ export default function Masterlist() {
   }
 
   function handleRowClick(doc) {
+    // ✅ Only this file will open the preview page
     if (doc.name === "Professional_Experience_Summary.pdf") {
       navigate("/documents/preview", { state: { document: doc } });
       return;
     }
+
+    // For other rows (keep your old behavior)
     alert(`Open doc ID: ${doc.id} (details page next)`);
   }
 
@@ -158,7 +161,7 @@ export default function Masterlist() {
 
               {/* Panel */}
               <div className="mt-5 rounded-2xl border border-gray-200 bg-white shadow-sm p-5">
-                {/* Toolbar (NO OVERLAP) */}
+                {/* Toolbar */}
                 <div className="flex items-center gap-3 w-full flex-wrap md:flex-nowrap">
                   <div className="flex-1 min-w-0 relative">
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">🔍</span>
