@@ -1,15 +1,41 @@
-import React from 'react';
-import { Search, Home, FileText, Users, Link2, Target, Calendar, Bell, User, ChevronLeft, ChevronRight, Share2, Download, MoreVertical } from 'lucide-react';
+import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import {
+  Search,
+  Home,
+  FileText,
+  Users,
+  Link2,
+  Target,
+  Calendar,
+  Bell,
+  User,
+  ChevronLeft,
+  ChevronRight,
+  Share2,
+  Download,
+  MoreVertical,
+} from "lucide-react";
 
 export default function DocumentPreview() {
-  const [selectedFile, setSelectedFile] = React.useState(null);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Document passed from Masterlist (metadata)
+  const passedDoc = location.state?.document || null;
+
+  // If we came from Masterlist, auto-show the preview UI
+  const [selectedFile, setSelectedFile] = React.useState(passedDoc);
+
+  const fileName =
+    (selectedFile && selectedFile.name) || "Document Preview";
 
   return (
     <div className="flex h-screen bg-gray-800">
       {/* Left Sidebar */}
-      <div className>
+      <div className="w-16 bg-gray-900 flex flex-col items-center py-4 gap-4">
         {/* Logo */}
-        <div className="w-12 h-12 bg-yellow-700 rounded flex items-center justify-center mb-4">
+        <div className="w-12 h-12 bg-yellow-700 rounded flex items-center justify-center">
           <span className="text-white text-xl"></span>
         </div>
 
@@ -35,11 +61,8 @@ export default function DocumentPreview() {
         <button className="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-white">
           <Bell className="w-5 h-5" />
         </button>
-        <button className="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-white">
-          <FileText className="w-5 h-5" />
-        </button>
 
-        <div className="flex-1"></div>
+        <div className="flex-1" />
 
         {/* User Avatar */}
         <button className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center text-white">
@@ -51,8 +74,17 @@ export default function DocumentPreview() {
       <div className="flex-1 flex flex-col">
         {/* Top Header */}
         <div className="bg-gradient-to-r from-yellow-800 to-yellow-600 px-6 py-4 flex items-center justify-between">
-          <div className="text-white text-sm">Document Preview</div>
-          
+          <div className="text-white text-sm flex items-center gap-3">
+            <button
+              onClick={() => navigate(-1)}
+              className="px-3 py-2 text-sm border border-white/30 rounded hover:bg-white/10 transition"
+              type="button"
+            >
+              ← Back
+            </button>
+            <span>Document Preview</span>
+          </div>
+
           <div className="flex items-center gap-4 flex-1 max-w-md mx-auto">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 w-4 h-4" />
@@ -65,8 +97,8 @@ export default function DocumentPreview() {
           </div>
 
           <div className="flex items-center gap-3">
-            <img 
-              src="https://via.placeholder.com/40" 
+            <img
+              src="https://via.placeholder.com/40"
               alt="User"
               className="w-10 h-10 rounded-full"
             />
@@ -80,34 +112,39 @@ export default function DocumentPreview() {
         {/* Document Viewer */}
         <div className="flex-1 bg-gray-100 p-6 overflow-auto">
           {selectedFile ? (
-            // PDF Preview - Shows when file is present
             <div className="max-w-5xl mx-auto bg-white rounded-lg shadow-lg">
               {/* Document Controls */}
               <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
-                <div className="text-lg font-medium">Professional_Experience_Summary.pdf</div>
-                
+                <div className="text-lg font-medium">{fileName}</div>
+
                 <div className="flex items-center gap-2">
-                  <button className="p-2 hover:bg-gray-100 rounded">
+                  <button className="p-2 hover:bg-gray-100 rounded" type="button">
                     <ChevronLeft className="w-5 h-5" />
                   </button>
-                  <button className="p-2 hover:bg-gray-100 rounded">
+                  <button className="p-2 hover:bg-gray-100 rounded" type="button">
                     <ChevronRight className="w-5 h-5" />
                   </button>
-                  <button className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50 flex items-center gap-2">
+                  <button
+                    className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50 flex items-center gap-2"
+                    type="button"
+                  >
                     <Share2 className="w-4 h-4" />
                     Share
                   </button>
-                  <button className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 flex items-center gap-2">
+                  <button
+                    className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 flex items-center gap-2"
+                    type="button"
+                  >
                     <Download className="w-4 h-4" />
                     Download
                   </button>
-                  <button className="p-2 hover:bg-gray-100 rounded">
+                  <button className="p-2 hover:bg-gray-100 rounded" type="button">
                     <MoreVertical className="w-5 h-5" />
                   </button>
                 </div>
               </div>
 
-              {/* Resume Content */}
+              {/* Resume Content (your existing template) */}
               <div className="p-12 bg-gray-50">
                 <div className="bg-white p-12 shadow-sm">
                   {/* Header */}
@@ -115,7 +152,7 @@ export default function DocumentPreview() {
                     <div>
                       <h1 className="text-5xl font-bold text-blue-900 mb-2">Mark</h1>
                       <h1 className="text-5xl font-bold text-blue-900 mb-6">Zuckerberg</h1>
-                      
+
                       <div className="space-y-1 text-sm">
                         <div>
                           <span className="text-red-500 font-semibold">Email:</span>
@@ -132,8 +169,8 @@ export default function DocumentPreview() {
                       </div>
                     </div>
 
-                    <img 
-                      src="https://via.placeholder.com/120" 
+                    <img
+                      src="https://via.placeholder.com/120"
                       alt="Profile"
                       className="w-32 h-32 rounded-full"
                     />
@@ -146,19 +183,25 @@ export default function DocumentPreview() {
                       {/* Education */}
                       <section>
                         <h2 className="text-xl font-bold text-blue-900 mb-4">Education & Courses</h2>
-                        
+
                         <div className="mb-4">
                           <div className="text-red-500 font-semibold mb-1">Psychology and Computer Science</div>
-                          <div className="bg-blue-900 text-white text-xs inline-block px-2 py-1 mb-2">Harvard University</div>
+                          <div className="bg-blue-900 text-white text-xs inline-block px-2 py-1 mb-2">
+                            Harvard University
+                          </div>
                           <div className="text-sm text-gray-600">Sep 2002 - ongoing</div>
                           <div className="text-sm text-gray-600">Cambridge, MA</div>
                         </div>
 
                         <div>
                           <div className="text-red-500 font-semibold mb-1">Classical studies and Science</div>
-                          <div className="bg-blue-900 text-white text-xs inline-block px-2 py-1 mb-2">Phillips Exeter Academy</div>
+                          <div className="bg-blue-900 text-white text-xs inline-block px-2 py-1 mb-2">
+                            Phillips Exeter Academy
+                          </div>
                           <div className="text-sm text-gray-600 mb-2">May 1998 - 2001</div>
-                          <div className="text-sm text-gray-600">Prestigious prep school; member of the Ten Schools</div>
+                          <div className="text-sm text-gray-600">
+                            Prestigious prep school; member of the Ten Schools
+                          </div>
                           <div className="text-sm text-gray-600">Admission Organization ("Big Tens")</div>
                         </div>
                       </section>
@@ -166,7 +209,7 @@ export default function DocumentPreview() {
                       {/* Software Development Experience */}
                       <section>
                         <h2 className="text-xl font-bold text-blue-900 mb-4">Software Development Experience</h2>
-                        
+
                         {/* Facemash */}
                         <div className="mb-6">
                           <div className="flex items-baseline justify-between mb-2">
@@ -174,7 +217,8 @@ export default function DocumentPreview() {
                             <span className="text-sm text-gray-600">10/2003 - ongoing</span>
                           </div>
                           <p className="text-sm text-gray-700 mb-2">
-                            A social-oriented website that allows visitors to compare two student pictures side-by-side and let them choose who was "hot" and who was "not"
+                            A social-oriented website that allows visitors to compare two student pictures
+                            side-by-side and let them choose who was "hot" and who was "not"
                           </p>
                           <ul className="text-sm text-gray-700 list-disc ml-5 space-y-1">
                             <li>Attracted 450 visitors for the first day who voted at least 22,000 times</li>
@@ -189,7 +233,9 @@ export default function DocumentPreview() {
                             <span className="text-sm text-gray-600">2003 - ongoing</span>
                           </div>
                           <p className="text-sm text-gray-700">
-                            The first intercostal media that allows university students to make class selection decisions based on the choices of other students and also to help them form study groups
+                            The first intercostal media that allows university students to make class
+                            selection decisions based on the choices of other students and also to help them
+                            form study groups
                           </p>
                         </div>
 
@@ -200,7 +246,8 @@ export default function DocumentPreview() {
                             <span className="text-sm text-gray-600">2006 - 2001</span>
                           </div>
                           <p className="text-sm text-gray-700 mb-2">
-                            Synapse is an app that uses artificial intelligence to learn the user's listening habits and then recommends music based on the user's preferences
+                            Synapse is an app that uses artificial intelligence to learn the user's
+                            listening habits and then recommends music based on the user's preferences
                           </p>
                           <ul className="text-sm text-gray-700 list-disc ml-5 space-y-1">
                             <li>Featured on the Slashdot and got a rating of 3/5 by PC Mag</li>
@@ -216,7 +263,9 @@ export default function DocumentPreview() {
                       {/* Life Philosophy */}
                       <section>
                         <h2 className="text-xl font-bold text-blue-900 mb-3">Life Philosophy</h2>
-                        <p className="text-sm text-gray-700 italic">"I'm trying to make the world a more open place"</p>
+                        <p className="text-sm text-gray-700 italic">
+                          "I'm trying to make the world a more open place"
+                        </p>
                       </section>
 
                       {/* Languages */}
@@ -228,7 +277,9 @@ export default function DocumentPreview() {
                             <span className="text-sm text-gray-600 ml-2">Native</span>
                           </div>
                           <div>
-                            <span className="bg-blue-900 text-white text-xs px-2 py-1 inline-block">Mandarin Chinese</span>
+                            <span className="bg-blue-900 text-white text-xs px-2 py-1 inline-block">
+                              Mandarin Chinese
+                            </span>
                             <span className="text-sm text-gray-600 ml-2">Intermediate</span>
                           </div>
                           <div>
@@ -244,7 +295,9 @@ export default function DocumentPreview() {
                             <span className="text-sm text-gray-600 ml-2">Advanced</span>
                           </div>
                           <div>
-                            <span className="bg-blue-900 text-white text-xs px-2 py-1 inline-block">Ancient Greek</span>
+                            <span className="bg-blue-900 text-white text-xs px-2 py-1 inline-block">
+                              Ancient Greek
+                            </span>
                             <span className="text-sm text-gray-600 ml-2">Introductory</span>
                           </div>
                         </div>
@@ -257,28 +310,38 @@ export default function DocumentPreview() {
                           <div className="flex items-start gap-2">
                             <span className="text-blue-600">🏆</span>
                             <div>
-                              <div className="bg-blue-900 text-white text-xs px-2 py-1 inline-block mb-1">Founded</div>
+                              <div className="bg-blue-900 text-white text-xs px-2 py-1 inline-block mb-1">
+                                Founded
+                              </div>
                               <p className="text-sm text-gray-700">One of the most used apps in Harvard</p>
                             </div>
                           </div>
                           <div className="flex items-start gap-2">
                             <span className="text-blue-600">🎓</span>
                             <div>
-                              <div className="bg-blue-900 text-white text-xs px-2 py-1 inline-block mb-1">10th place</div>
-                              <p className="text-sm text-gray-700">In national astronomy, physics and classical studies</p>
+                              <div className="bg-blue-900 text-white text-xs px-2 py-1 inline-block mb-1">
+                                10th place
+                              </div>
+                              <p className="text-sm text-gray-700">
+                                In national astronomy, physics and classical studies
+                              </p>
                             </div>
                           </div>
                           <div className="flex items-start gap-2">
                             <span className="text-blue-600">⚡</span>
                             <div>
-                              <div className="bg-blue-900 text-white text-xs px-2 py-1 inline-block mb-1">Proficient</div>
+                              <div className="bg-blue-900 text-white text-xs px-2 py-1 inline-block mb-1">
+                                Proficient
+                              </div>
                               <p className="text-sm text-gray-700">In six languages</p>
                             </div>
                           </div>
                           <div className="flex items-start gap-2">
                             <span className="text-blue-600">💻</span>
                             <div>
-                              <div className="bg-blue-900 text-white text-xs px-2 py-1 inline-block mb-1">Developed first</div>
+                              <div className="bg-blue-900 text-white text-xs px-2 py-1 inline-block mb-1">
+                                Developed first
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -289,7 +352,6 @@ export default function DocumentPreview() {
               </div>
             </div>
           ) : (
-            // Empty State - Shows when no file is selected
             <div className="flex items-center justify-center h-full">
               <div className="text-center">
                 <FileText className="w-24 h-24 text-gray-400 mx-auto mb-4" />
@@ -297,9 +359,9 @@ export default function DocumentPreview() {
                 <p className="text-gray-500 mb-6">Upload or select a document to preview</p>
                 <label className="px-6 py-3 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 cursor-pointer inline-block">
                   Select Document
-                  <input 
-                    type="file" 
-                    className="hidden" 
+                  <input
+                    type="file"
+                    className="hidden"
                     accept=".pdf"
                     onChange={(e) => {
                       if (e.target.files[0]) {

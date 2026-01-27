@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Search, User, Upload, X, Link } from 'lucide-react';
-import Dashboard from "../dashboard";
+import Dashboard from "./dashboard";
 import { useNavigate } from "react-router-dom";
 
 export default function DocumentRequestForm() {

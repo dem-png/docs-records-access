@@ -53,6 +53,14 @@ export default function Masterlist() {
     e.target.value = "";
   }
 
+  function handleRowClick(doc) {
+    if (doc.name === "Professional_Experience_Summary.pdf") {
+      navigate("/documents/preview", { state: { document: doc } });
+      return;
+    }
+    alert(`Open doc ID: ${doc.id} (details page next)`);
+  }
+
   return (
     <div className="h-screen w-screen overflow-hidden bg-[#f3f3f3]">
       <div className="h-full flex">
@@ -208,7 +216,7 @@ export default function Masterlist() {
                         <tr
                           key={doc.id}
                           className="border-t border-gray-200 hover:bg-gray-50 cursor-pointer transition"
-                          onClick={() => alert(`Open doc ID: ${doc.id} (details page next)`)}
+                          onClick={() => handleRowClick(doc)}
                         >
                           <td className="py-4 px-3" onClick={(e) => e.stopPropagation()}>
                             <input type="checkbox" className="h-4 w-4" />
