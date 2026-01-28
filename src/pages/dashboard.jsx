@@ -176,7 +176,7 @@ export default function Dashboard() {
 
               {/* Top Search */}
               <div className="flex-1 max-w-[560px] relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">🔍</span>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"></span>
                 <input
                   className="w-full h-10 rounded-xl bg-white/95 border border-white/30 outline-none pl-10 pr-3 text-sm
                              focus:ring-2 focus:ring-[#f4c20d]/50 focus:border-[#f4c20d]/40 transition"
@@ -220,9 +220,9 @@ export default function Dashboard() {
 
               {/* Stats */}
               <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <StatCard icon="📄" title="Total Documents" value={documents.length} />
-                <StatCard icon="⭐" title="Certifications" value={certCount} />
-                <StatCard icon="📨" title="Requested Documents" value="5" />
+                <StatCard icon="" title="Total Documents" value={documents.length} />
+                <StatCard icon="" title="Certifications" value={certCount} />
+                <StatCard icon="" title="Requested Documents" value="5" />
                 <div className="hidden lg:block" />
               </div>
 
@@ -231,34 +231,48 @@ export default function Dashboard() {
                 {/* Left column */}
                 <div className="min-w-0 space-y-5">
                   {/* Upload */}
-                  <div className="rounded-2xl border border-gray-200 bg-white shadow-sm p-5">
-                    <div className="rounded-2xl border border-dashed border-gray-300 bg-gray-50/60 p-7 text-center">
-                      <div className="mx-auto h-12 w-12 rounded-full bg-[#fbf4d5] grid place-items-center text-lg">
-                        ⬆
-                      </div>
-                      <div className="mt-2 font-black text-gray-900">Upload New Document</div>
-                      <div className="mt-1 text-xs text-gray-500">
-                        Drag and drop your files here, or click to browse
-                      </div>
+<div className="rounded-2xl border border-gray-200 bg-white shadow-sm p-5">
+  <div
+    onClick={openPicker}
+    className="group cursor-pointer rounded-2xl border-2 border-dashed border-[#f4c20d]
+               bg-white p-8 flex flex-col items-center justify-center text-center
+               hover:bg-[#fffbea] transition"
+  >
+    {/* Upload Icon */}
+    <div className="text-[#9ca3af] group-hover:text-[#6b7280] transition">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-10 w-10"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={1.8}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M12 16V8m0 0l-3 3m3-3l3 3M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1"
+        />
+      </svg>
+    </div>
 
-                      <button
-                        className="mt-4 inline-flex items-center justify-center gap-2 h-10 px-5 rounded-full
-                                   bg-[#f4c20d] text-[#111] font-extrabold shadow-sm hover:brightness-95 transition"
-                        onClick={openPicker}
-                      >
-                        + Choose Files
-                      </button>
+    {/* Text */}
+    <p className="mt-3 text-sm text-gray-600">
+      <span className="font-semibold text-gray-800">Click to upload</span> or drag and drop
+    </p>
+  </div>
 
-                      <input
-                        ref={fileRef}
-                        type="file"
-                        hidden
-                        multiple
-                        onChange={onPickFiles}
-                        accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
-                      />
-                    </div>
-                  </div>
+  {/* Hidden file input */}
+  <input
+    ref={fileRef}
+    type="file"
+    hidden
+    multiple
+    onChange={onPickFiles}
+    accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+  />
+</div>
+
 
                   {/* Documents */}
                   <div className="rounded-2xl border border-gray-200 bg-white shadow-sm p-5">
@@ -280,7 +294,7 @@ export default function Dashboard() {
                     {/* Search + Filter (NO OVERLAP) */}
                     <div className="mt-4 flex items-center gap-3 w-full">
                       <div className="flex-1 min-w-0 relative">
-                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">🔍</span>
+                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"></span>
                         <input
                           className="w-full h-10 rounded-xl border border-gray-200 bg-white pl-10 pr-3 text-sm
                                      outline-none focus:ring-2 focus:ring-[#f4c20d]/40 focus:border-[#f4c20d]/30 transition"
@@ -312,7 +326,7 @@ export default function Dashboard() {
                         >
                           <div className="flex items-center gap-3 min-w-0">
                             <div className="h-10 w-10 rounded-xl bg-gray-100 grid place-items-center shrink-0 text-lg">
-                              {doc.star ? "⭐" : "📄"}
+                        
                             </div>
                             <div className="min-w-0">
                               <div className="text-sm font-extrabold text-gray-900 truncate">{doc.name}</div>

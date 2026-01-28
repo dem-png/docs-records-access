@@ -2,14 +2,15 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Search,
-  Home,
+  LayoutDashboard,
   FileText,
   Users,
-  Link2,
-  Target,
   Calendar,
-  Bell,
-  User,
+  Megaphone,
+  Award,
+  GraduationCap,
+  HandHeart,
+  UserCircle,
   ChevronLeft,
   ChevronRight,
   Share2,
@@ -27,51 +28,91 @@ export default function DocumentPreview() {
   // If we came from Masterlist, auto-show the preview UI
   const [selectedFile, setSelectedFile] = React.useState(passedDoc);
 
-  const fileName =
-    (selectedFile && selectedFile.name) || "Document Preview";
+  const fileName = (selectedFile && selectedFile.name) || "Document Preview";
+
+  const menu = [
+    { label: "Dashboard", icon: LayoutDashboard, onClick: () => {} },
+    { label: "Directory & Networking", icon: Users, onClick: () => {} },
+    { label: "Career & Job Opportunities", icon: FileText, onClick: () => {} },
+    { label: "Training & Learnings", icon: GraduationCap, onClick: () => {} },
+    { label: "Achievements & Recognition", icon: Award, onClick: () => {} },
+    { label: "Events & Community Engagement", icon: Calendar, onClick: () => {} },
+    { label: "Announcements", icon: Megaphone, onClick: () => {} },
+    { label: "Mentorship & Volunteer Programs", icon: HandHeart, onClick: () => {} },
+  ];
 
   return (
-    <div className="flex h-screen bg-gray-800">
-      {/* Left Sidebar */}
-      <div className="w-16 bg-gray-900 flex flex-col items-center py-4 gap-4">
-        {/* Logo */}
-        <div className="w-12 h-12 bg-yellow-700 rounded flex items-center justify-center">
-          <span className="text-white text-xl"></span>
+    <div className="h-screen w-screen overflow-hidden bg-[#f3f3f3] flex">
+      {/* Sidebar (same style as Dashboard) */}
+      <aside className="hidden md:flex w-[280px] shrink-0 flex-col bg-[#5a5a5a] text-white">
+        <div className="p-5">
+          {/* Brand */}
+          <div className="flex items-center gap-3">
+            <div className="h-10 w-10 rounded-xl bg-[#f4c20d] text-[#111] grid place-items-center font-black">
+              H
+            </div>
+            <div>
+              <div className="font-black tracking-wide leading-none">HSI</div>
+              <div className="text-[11px] text-white/70">Alumni Portal</div>
+            </div>
+          </div>
+
+          <div className="mt-6 text-[11px] uppercase tracking-[0.2em] text-white/60">
+            Main
+          </div>
+
+          <nav className="mt-3 space-y-1">
+            {menu.map((item) => {
+              const Icon = item.icon;
+              return (
+                <button
+                  key={item.label}
+                  onClick={item.onClick}
+                  type="button"
+                  className="w-full text-left px-3 py-2 rounded-xl text-[13px] text-white/85 hover:bg-white/10 transition flex items-center gap-2"
+                >
+                  <Icon className="w-4 h-4 opacity-90" />
+                  {item.label}
+                </button>
+              );
+            })}
+
+            {/* Active */}
+            <button
+              className="w-full text-left px-3 py-2 rounded-xl text-[13px] bg-[#f4c20d] text-[#111] font-extrabold shadow-sm flex items-center gap-2"
+              type="button"
+            >
+              <FileText className="w-4 h-4" />
+              Documents & Records
+            </button>
+          </nav>
+
+          <div className="mt-6 text-[11px] uppercase tracking-[0.2em] text-white/60">
+            Others
+          </div>
+
+          <button
+            className="mt-3 w-full text-left px-3 py-2 rounded-xl text-[13px] text-white/85 hover:bg-white/10 transition flex items-center gap-2"
+            type="button"
+          >
+            <UserCircle className="w-4 h-4 opacity-90" />
+            Profile
+          </button>
         </div>
 
-        {/* Navigation Icons */}
-        <button className="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-white">
-          <Home className="w-5 h-5" />
-        </button>
-        <button className="w-10 h-10 flex items-center justify-center bg-yellow-600 rounded text-white">
-          <FileText className="w-5 h-5" />
-        </button>
-        <button className="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-white">
-          <Users className="w-5 h-5" />
-        </button>
-        <button className="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-white">
-          <Link2 className="w-5 h-5" />
-        </button>
-        <button className="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-white">
-          <Target className="w-5 h-5" />
-        </button>
-        <button className="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-white">
-          <Calendar className="w-5 h-5" />
-        </button>
-        <button className="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-white">
-          <Bell className="w-5 h-5" />
-        </button>
-
-        <div className="flex-1" />
-
-        {/* User Avatar */}
-        <button className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center text-white">
-          <User className="w-5 h-5" />
-        </button>
-      </div>
+        <div className="mt-auto p-5">
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+            <div className="text-xs font-semibold text-white/70">Tip</div>
+            <div className="mt-1 text-sm font-bold">Preview before downloading.</div>
+            <div className="mt-2 text-xs text-white/70">
+              Make sure details are correct.
+            </div>
+          </div>
+        </div>
+      </aside>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col overflow-hidden">
         {/* Top Header */}
         <div className="bg-gradient-to-r from-yellow-800 to-yellow-600 px-6 py-4 flex items-center justify-between">
           <div className="text-white text-sm flex items-center gap-3">
@@ -87,7 +128,7 @@ export default function DocumentPreview() {
 
           <div className="flex items-center gap-4 flex-1 max-w-md mx-auto">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 w-4 h-4" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-600 w-4 h-4" />
               <input
                 type="text"
                 placeholder="Search"
@@ -97,11 +138,9 @@ export default function DocumentPreview() {
           </div>
 
           <div className="flex items-center gap-3">
-            <img
-              src="https://via.placeholder.com/40"
-              alt="User"
-              className="w-10 h-10 rounded-full"
-            />
+            <div className="w-10 h-10 rounded-full bg-gray-700 grid place-items-center text-white font-black">
+              MZ
+            </div>
             <div className="text-white text-sm">
               <div className="font-semibold">MARK ZUCKERBERG</div>
               <div className="text-xs opacity-90">Co-Founder / CEO</div>
@@ -124,6 +163,7 @@ export default function DocumentPreview() {
                   <button className="p-2 hover:bg-gray-100 rounded" type="button">
                     <ChevronRight className="w-5 h-5" />
                   </button>
+
                   <button
                     className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50 flex items-center gap-2"
                     type="button"
@@ -131,6 +171,7 @@ export default function DocumentPreview() {
                     <Share2 className="w-4 h-4" />
                     Share
                   </button>
+
                   <button
                     className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 flex items-center gap-2"
                     type="button"
@@ -138,6 +179,7 @@ export default function DocumentPreview() {
                     <Download className="w-4 h-4" />
                     Download
                   </button>
+
                   <button className="p-2 hover:bg-gray-100 rounded" type="button">
                     <MoreVertical className="w-5 h-5" />
                   </button>
@@ -210,7 +252,6 @@ export default function DocumentPreview() {
                       <section>
                         <h2 className="text-xl font-bold text-blue-900 mb-4">Software Development Experience</h2>
 
-                        {/* Facemash */}
                         <div className="mb-6">
                           <div className="flex items-baseline justify-between mb-2">
                             <h3 className="text-red-500 font-semibold">Facemash</h3>
@@ -226,7 +267,6 @@ export default function DocumentPreview() {
                           </ul>
                         </div>
 
-                        {/* CourseMatch */}
                         <div className="mb-6">
                           <div className="flex items-baseline justify-between mb-2">
                             <h3 className="text-red-500 font-semibold">CourseMatch</h3>
@@ -239,7 +279,6 @@ export default function DocumentPreview() {
                           </p>
                         </div>
 
-                        {/* Synapse Media Player */}
                         <div>
                           <div className="flex items-baseline justify-between mb-2">
                             <h3 className="text-red-500 font-semibold">Synapse Media Player</h3>
@@ -260,7 +299,6 @@ export default function DocumentPreview() {
 
                     {/* Right Column */}
                     <div className="space-y-8">
-                      {/* Life Philosophy */}
                       <section>
                         <h2 className="text-xl font-bold text-blue-900 mb-3">Life Philosophy</h2>
                         <p className="text-sm text-gray-700 italic">
@@ -268,81 +306,12 @@ export default function DocumentPreview() {
                         </p>
                       </section>
 
-                      {/* Languages */}
                       <section>
                         <h2 className="text-xl font-bold text-blue-900 mb-3">Languages</h2>
                         <div className="space-y-2">
                           <div>
                             <span className="bg-blue-900 text-white text-xs px-2 py-1 inline-block">English</span>
                             <span className="text-sm text-gray-600 ml-2">Native</span>
-                          </div>
-                          <div>
-                            <span className="bg-blue-900 text-white text-xs px-2 py-1 inline-block">
-                              Mandarin Chinese
-                            </span>
-                            <span className="text-sm text-gray-600 ml-2">Intermediate</span>
-                          </div>
-                          <div>
-                            <span className="bg-blue-900 text-white text-xs px-2 py-1 inline-block">French</span>
-                            <span className="text-sm text-gray-600 ml-2">Advanced</span>
-                          </div>
-                          <div>
-                            <span className="bg-blue-900 text-white text-xs px-2 py-1 inline-block">Hebrew</span>
-                            <span className="text-sm text-gray-600 ml-2">Intermediate</span>
-                          </div>
-                          <div>
-                            <span className="bg-blue-900 text-white text-xs px-2 py-1 inline-block">Latin</span>
-                            <span className="text-sm text-gray-600 ml-2">Advanced</span>
-                          </div>
-                          <div>
-                            <span className="bg-blue-900 text-white text-xs px-2 py-1 inline-block">
-                              Ancient Greek
-                            </span>
-                            <span className="text-sm text-gray-600 ml-2">Introductory</span>
-                          </div>
-                        </div>
-                      </section>
-
-                      {/* Achievements */}
-                      <section>
-                        <h2 className="text-xl font-bold text-blue-900 mb-3">Achievements</h2>
-                        <div className="space-y-3">
-                          <div className="flex items-start gap-2">
-                            <span className="text-blue-600">🏆</span>
-                            <div>
-                              <div className="bg-blue-900 text-white text-xs px-2 py-1 inline-block mb-1">
-                                Founded
-                              </div>
-                              <p className="text-sm text-gray-700">One of the most used apps in Harvard</p>
-                            </div>
-                          </div>
-                          <div className="flex items-start gap-2">
-                            <span className="text-blue-600">🎓</span>
-                            <div>
-                              <div className="bg-blue-900 text-white text-xs px-2 py-1 inline-block mb-1">
-                                10th place
-                              </div>
-                              <p className="text-sm text-gray-700">
-                                In national astronomy, physics and classical studies
-                              </p>
-                            </div>
-                          </div>
-                          <div className="flex items-start gap-2">
-                            <span className="text-blue-600">⚡</span>
-                            <div>
-                              <div className="bg-blue-900 text-white text-xs px-2 py-1 inline-block mb-1">
-                                Proficient
-                              </div>
-                              <p className="text-sm text-gray-700">In six languages</p>
-                            </div>
-                          </div>
-                          <div className="flex items-start gap-2">
-                            <span className="text-blue-600">💻</span>
-                            <div>
-                              <div className="bg-blue-900 text-white text-xs px-2 py-1 inline-block mb-1">
-                                Developed first
-                              </div>
-                            </div>
                           </div>
                         </div>
                       </section>
@@ -355,7 +324,9 @@ export default function DocumentPreview() {
             <div className="flex items-center justify-center h-full">
               <div className="text-center">
                 <FileText className="w-24 h-24 text-gray-400 mx-auto mb-4" />
-                <h2 className="text-2xl font-semibold text-gray-700 mb-2">No Document Selected</h2>
+                <h2 className="text-2xl font-semibold text-gray-700 mb-2">
+                  No Document Selected
+                </h2>
                 <p className="text-gray-500 mb-6">Upload or select a document to preview</p>
                 <label className="px-6 py-3 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 cursor-pointer inline-block">
                   Select Document
@@ -364,9 +335,7 @@ export default function DocumentPreview() {
                     className="hidden"
                     accept=".pdf"
                     onChange={(e) => {
-                      if (e.target.files[0]) {
-                        setSelectedFile(e.target.files[0]);
-                      }
+                      if (e.target.files[0]) setSelectedFile(e.target.files[0]);
                     }}
                   />
                 </label>
